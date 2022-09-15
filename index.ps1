@@ -26,46 +26,61 @@ $Panel1.width                                  = 500
 $Panel1.location                               = New-Object System.Drawing.Point(0,0)
 $Form.controls.AddRange(@($Panel1))
 
+#bal oldali oszlop
 $a_0=5
 $margin_left=5
-$d=85
+$d                            = 125
+$XY                           = 120
 
-$dgg_SYS               = CreateItem "Alap rendszer telepítés" "Button" 80 12 $margin_left $a_0
+$dgg_SYS                       = CreateItem "Alap rendszer telepítés" "Button" $XY 12 $margin_left $a_0
 $Panel1.controls.AddRange(@($dgg_SYS))
 $a_0=$a_0+$d
 
-$dgg_Update            = CreateItem "Frissítések, Driverek" "Button" 80 12 $margin_left $a_0
+$dgg_Update                    = CreateItem "Frissítések, Driverek" "Button" $XY 12 $margin_left $a_0
 $Panel1.controls.AddRange(@($dgg_Update))
 $a_0=$a_0+$d
 
-$dgg_InstCenter        = CreateItem "Telepítõ központ" "Button" 80 12 $margin_left $a_0
+$dgg_InstCenter                = CreateItem "Telepítõ központ" "Button" $XY 12 $margin_left $a_0
 $Panel1.controls.AddRange(@($dgg_InstCenter))
 $a_0=$a_0+$d
 
+$dgg_OPT                       = CreateItem "Optimalizálás" "Button" $XY 12 $margin_left $a_0
+$Panel1.controls.AddRange(@($dgg_OPT))
+$a_0=$a_0+$d
+<#
 $dgg_AdBlock           = CreateItem "Reklám védelem" "Button" 80 12 $margin_left $a_0
 $Panel1.controls.AddRange(@($dgg_AdBlock))
 $a_0=$a_0+$d
+$dgg_AdBlock.Add_Click({
+	start-process powershell -argument "-windowstyle hidden $ROOT\dgg_AdBlock.ps1"
+})
+#>
 
-$dgg_Commander         = CreateItem "Commander(TC, DC)" "Button" 80 12 $margin_left $a_0
-$Panel1.controls.AddRange(@($dgg_Commander))
-$a_0=$a_0+$d
-$dgg_Theme             = CreateItem "Témakezelõ" "Button" 80 12 $margin_left $a_0
+#jobb oldali oszlop
+$a_0=5
+$margin_left=500-$XY-5
+
+$dgg_Theme                     = CreateItem "Témakezelõ" "Button" $XY 12 $margin_left $a_0
+$dgg_Theme.Enabled             = $False
 $Panel1.controls.AddRange(@($dgg_Theme))
+$a_0=$a_0+$d
 
+$dgg_ADMIN                     = CreateItem "Admin TOOLS" "Button" $XY 12 $margin_left $a_0
+$dgg_ADMIN.Enabled             = $False
+$Panel1.controls.AddRange(@($dgg_ADMIN))
+$a_0=$a_0+$d
+<#
 $margin_left=95
 $a_0=5
 $dgg_Energy            = CreateItem "Fõkapcsoló kezelés" "Button" 80 12 $margin_left $a_0
 $Panel1.controls.AddRange(@($dgg_Energy))
 $a_0=$a_0+$d
-
+$dgg_Commander         = CreateItem "Commander(TC, DC)" "Button" 80 12 $margin_left $a_0
+$Panel1.controls.AddRange(@($dgg_Commander))
+$a_0=$a_0+$d
 $dgg_tools             = CreateItem "Felügyeleti eszközök" "Button" 80 12 $margin_left $a_0
 $Panel1.controls.AddRange(@($dgg_tools))
 $a_0=$a_0+$d
-
-#jobb oldali oszlop
-$a_0=5
-$margin_left=500-80-5
-
 $dgg_Cell              = CreateItem "Cell(letíltva újra gondolás miatt)" "Button" 80 12 $margin_left $a_0
 $dgg_Cell.Enabled      = $False
 $a_0=$a_0+$d
@@ -82,21 +97,16 @@ $dgg_Extra             = CreateItem "Extrák" "Button" 80 12 $margin_left $a_0
 $a_0=$a_0+$d
 $dgg_Support           = CreateItem "Support" "Button" 80 12 $margin_left $a_0
 $a_0=$a_0+$d
-
-
 $Panel1.controls.AddRange(@($dgg_AdBlock,$dgg_InstCenter,$dgg_Commander,$dgg_Theme,$dgg_Energy,$dgg_Update,$dgg_tools,$dgg_Cell,$dgg_Network,$dgg_Diag,$dgg_Red,$dgg_DGGConect,$dgg_Extra,$dgg_Support))
-
-$dgg_AdBlock.Add_Click({
-	start-process powershell -argument "-windowstyle hidden $ROOT\dgg_AdBlock.ps1"
-})
-
-$dgg_InstCenter.Add_Click({
-	start-process powershell -argument "-windowstyle hidden $ROOT\dgg_InstCenter.ps1"
-})
 
 $dgg_Cell.Add_Click({
 	#Start-Process powershell -argument "-NoProfile -ExecutionPolicy Bypass -File ./dgg_cell.ps1" -Verb RunAs
 	start-process powershell -argument "-windowstyle hidden $ROOT/DGG_Cell.ps1"
+})
+#>
+
+$dgg_InstCenter.Add_Click({
+	start-process powershell -argument "-windowstyle hidden $ROOT\dgg_InstCenter.ps1"
 })
 
 [void]$Form.ShowDialog()
